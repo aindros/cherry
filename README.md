@@ -1,2 +1,2 @@
-# cherry
-GUI toolkit cross-platform
+# Cherry
+Is a GUI toolkit cross-platform.
