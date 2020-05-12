@@ -50,3 +50,11 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Ignoring Visual Studio workspace. Can be
+# generated it by Powershell script included
+# with this repository
+*.sln
+*.vcxproj
+*.vcxproj.filters
+.vs/
