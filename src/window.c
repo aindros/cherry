@@ -59,6 +59,9 @@ void
 cherry_window_set_title(CherryWindow *w, char *title)
 {
 	w->title = strdup(title);
+
+	CherryApplication *app = cherry_application_get_running_app();
+	XStoreName(app->display, w->window_handler, w->title);
 }
 
 void
