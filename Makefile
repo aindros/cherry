@@ -15,3 +15,4 @@ debug:
 
 clean:
 	rm -rf ${OBJ} ${NAME}
+	rm -f *.core
