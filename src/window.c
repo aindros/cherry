@@ -55,6 +55,16 @@ cherry_window_new(void)
 	return w;
 }
 
+char *
+cherry_window_get_title(CherryWindow *w)
+{
+	char *wnd_name;
+	CherryApplication *app = cherry_application_get_running_app();
+	XFetchName(app->display, w->window_handler, &wnd_name);
+
+	return wnd_name;
+}
+
 void
 cherry_window_set_title(CherryWindow *w, char *title)
 {
