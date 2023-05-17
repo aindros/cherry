@@ -79,6 +79,11 @@ cherry_window_set_dimension(CherryWindow *w, int width, int height)
 {
 	w->dimension->width  = width;
 	w->dimension->height = height;
+
+	CherryApplication *app = cherry_application_get_running_app();
+	XMoveResizeWindow(app->display, w->window_handler,
+	                  w->x, w->y,
+	                  w->dimension->width, w->dimension->height);
 }
 
 void
@@ -86,6 +91,11 @@ cherry_window_set_position(CherryWindow *w, int x, int y)
 {
 	w->x = x;
 	w->y = y;
+
+	CherryApplication *app = cherry_application_get_running_app();
+	XMoveResizeWindow(app->display, w->window_handler,
+	                  w->x, w->y,
+	                  w->dimension->width, w->dimension->height);
 }
 
 void
