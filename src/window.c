@@ -74,6 +74,23 @@ cherry_window_new(void)
 	return w;
 }
 
+void
+cherry_window_dispose_on_exit(CherryWindow *w)
+{
+	CherryApplication *app = cherry_application_get_running_app();
+
+	XEvent evt;
+	evt.xclient.type = ClientMessage;
+	evt.xclient.serial = 0;
+	evt.xclient.send_event = 1;
+	evt.xclient.message_type = XInternAtom(app->display, "WM_PROTOCOLS", 0);
+	evt.xclient.format = 32;
+	evt.xclient.window = w->window_handler;
+	evt.xclient.data.l[0] = XInternAtom(app->display, "CHERRY_DISPOSE_ON_EXIT", 0);
+
+	XSendEvent(app->display, w->window_handler, 0, NoEventMask, &evt);
+}
+
 char *
 cherry_window_get_title(CherryWindow *w)
 {

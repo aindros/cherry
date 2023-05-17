@@ -19,6 +19,7 @@ typedef struct CherryWindow {
 } CherryWindow;
 
 CherryWindow *cherry_window_new(void);
+void          cherry_window_dispose_on_exit(CherryWindow *);
 char         *cherry_window_get_title(CherryWindow *);
 void          cherry_window_set_title(CherryWindow *, char *);
 void          cherry_window_set_dimension(CherryWindow *, int, int);
