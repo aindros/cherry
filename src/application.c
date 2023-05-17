@@ -103,6 +103,8 @@ cherry_application_run(CherryApplication *app, int argc, char **argv)
 		char *wnd_name = cherry_window_get_title(w);
 		printf("Destroying window: %s\n", wnd_name);
 		XFree(wnd_name);
+
+		XFreeGC(app->display, w->gc);
 		XDestroyWindow(app->display, w->window_handler);
 	}
 
