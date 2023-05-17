@@ -32,6 +32,53 @@ cherry_application_new(const char *name)
 	return app;
 }
 
+static void
+dispatch_event(CherryApplication *app, Window wnd, int event_id) {
+	iterator_t it = clist_iterator(&app->windows);
+	while (clist_iterator_has_next(it)) {
+		CherryWindow *w = clist_iterator_next(&it);
+		if (w->window_handler == wnd) {
+			if (w->listener != NULL) {
+				w->listener(w, event_id);
+			} else {
+				return;
+			}
+		}
+	}
+}
+
+static void
+cherry_application_main_loop(CherryApplication *app)
+{
+	XEvent event;
+	int finish = 0;
+	char *atom_name;
+
+	while (finish == 0) {
+		XNextEvent(app->display, &event);
+
+		switch (event.type) {
+			case ClientMessage:
+				atom_name = XGetAtomName(app->display, (Atom) event.xclient.data.l[0]);
+
+				if (strcmp("WM_DELETE_WINDOW", atom_name) == 0) {
+					dispatch_event(app, event.xclient.window, DELETE_WINDOW);
+				}
+
+				XFree(atom_name);
+				break;
+			case Expose:
+				break;
+			case MappingNotify:
+				break;
+			case ButtonPress:
+				break;
+			case KeyPress:
+				break;
+		}
+	}
+}
+
 int
 cherry_application_run(CherryApplication *app, int argc, char **argv)
 {
@@ -46,10 +93,13 @@ cherry_application_run(CherryApplication *app, int argc, char **argv)
 	if (app->listener_activate != NULL)
 		app->listener_activate(app, app->listener_activate_data);
 
+	cherry_application_main_loop(app);
+
 	/* finalization */
 	iterator_t it = clist_iterator(&app->windows);
 	while (clist_iterator_has_next(it)) {
 		CherryWindow *w = clist_iterator_next(&it);
+
 		char *wnd_name = cherry_window_get_title(w);
 		printf("Destroying window: %s\n", wnd_name);
 		XFree(wnd_name);

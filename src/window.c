@@ -16,6 +16,7 @@ cherry_window_new(void)
 	w->dimension = cherry_dimension_new();
 	w->x = 0;
 	w->y = 0;
+	w->listener = NULL;
 
 	CherryApplication *app = cherry_application_get_running_app();
 
@@ -106,4 +107,11 @@ cherry_window_set_visible(CherryWindow *w, int visible)
 	if (visible) {
 		XMapRaised(app->display, w->window_handler);
 	}
+}
+
+void
+cherry_window_set_listener(CherryWindow *w,
+                           int (*listener)(struct CherryWindow *, int))
+{
+	w->listener = listener;
 }
