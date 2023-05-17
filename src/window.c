@@ -41,10 +41,12 @@ cherry_window_new(void)
 	                                  app->visual,
 	                                  CWBackPixel,
 	                                  &attributes);
-	char hello[] = "Hello from another World!";
+	char window_name[] = "";
+	char icon_name[]   = "";
 	XSetStandardProperties(app->display,
 	                       w->window_handler,
-	                       hello, hello,
+	                       window_name,
+	                       icon_name,
 	                       None, NULL, 0,
 	                       &hints);
 
