@@ -1,9 +1,11 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <utils.h>
+#include <log.h>
 #include "application.h"
 #include "event.h"
 #include "window.h"
@@ -82,9 +84,21 @@ cherry_application_main_loop(CherryApplication *app)
 	}
 }
 
+static void
+print_log(Log *log, char *fmt, char *attr)
+{
+	char *message = calloc(strlen(fmt) + strlen(attr) + 1, sizeof(char));
+	sprintf(message, fmt, attr);
+	log_debug(log, message);
+
+	free(message);
+}
+
 int
 cherry_application_run(CherryApplication *app, int argc, char **argv)
 {
+	Log *log = log_create("cherry_application_run");
+
 	if (app == NULL) exit(1);
 
 	/* setup display/screen */
@@ -104,7 +118,7 @@ cherry_application_run(CherryApplication *app, int argc, char **argv)
 		CherryWindow *w = clist_iterator_next(&it);
 
 		char *wnd_name = cherry_window_get_title(w);
-		printf("Destroying window: %s\n", wnd_name);
+		print_log(log, "Destroying window: %s", wnd_name);
 		XFree(wnd_name);
 
 		XFreeGC(app->display, w->gc);
