@@ -54,12 +54,12 @@ cherry_window_new(void)
 	                       None, NULL, 0,
 	                       &hints);
 
-	clist_add(&(app->windows), w, sizeof(*w));
 
 	w->gc = XCreateGC(app->display, w->window_handler, 0, 0);
 	XSetBackground(app->display, w->gc, WhitePixel(app->display, app->screen));
 	XSetForeground(app->display, w->gc, BlackPixel(app->display, app->screen));
 
+	clist_add(&(app->windows), w);
 
 	return w;
 }
