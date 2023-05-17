@@ -54,6 +54,16 @@ cherry_window_new(void)
 	                       None, NULL, 0,
 	                       &hints);
 
+	/* allow receiving mouse events */
+	XSelectInput(app->display,
+	             w->window_handler,
+	             ButtonPressMask | KeyPressMask | ExposureMask);
+
+	Atom wmDelete = XInternAtom(app->display, "WM_DELETE_WINDOW", True);
+	XSetWMProtocols(app->display, w->window_handler, &wmDelete, 1);
+
+	Atom wmDispose = XInternAtom(app->display, "CHERRY_DISPOSE_ON_EXIT", True);
+	XSetWMProtocols(app->display, w->window_handler, &wmDelete, 1);
 
 	w->gc = XCreateGC(app->display, w->window_handler, 0, 0);
 	XSetBackground(app->display, w->gc, WhitePixel(app->display, app->screen));

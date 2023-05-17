@@ -61,7 +61,10 @@ cherry_application_main_loop(CherryApplication *app)
 			case ClientMessage:
 				atom_name = XGetAtomName(app->display, (Atom) event.xclient.data.l[0]);
 
-				if (strcmp("WM_DELETE_WINDOW", atom_name) == 0) {
+				if (strcmp("CHERRY_DISPOSE_ON_EXIT", atom_name) == 0) {
+					/* Exit from loop */
+					finish = 1;
+				} else if (strcmp("WM_DELETE_WINDOW", atom_name) == 0) {
 					dispatch_event(app, event.xclient.window, DELETE_WINDOW);
 				}
 
