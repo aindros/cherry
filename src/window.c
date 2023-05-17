@@ -45,6 +45,8 @@ cherry_window_new(void)
 	                                  &attributes);
 	char window_name[] = "";
 	char icon_name[]   = "";
+
+	/* window manager properties (yes, use of StdProp is obsolete) */
 	XSetStandardProperties(app->display,
 	                       w->window_handler,
 	                       window_name,
