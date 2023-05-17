@@ -5,7 +5,7 @@ NAME = cherry
 CC   = cc
 SRC != find src -name '*.c'
 OBJ  = ${SRC:.c=.o}
-LIB  = x11 utils
+LIB  = x11 utils log
 STD  = c11
 #WRN  = -Wall -Werror
 
