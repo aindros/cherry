@@ -50,7 +50,7 @@ cherry_window_new(void)
 	                       None, NULL, 0,
 	                       &hints);
 
-	clist_add(&(app->windows), &w->window_handler, sizeof(w->window_handler));
+	clist_add(&(app->windows), w, sizeof(*w));
 
 	return w;
 }
