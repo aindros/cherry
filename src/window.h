@@ -4,6 +4,7 @@
 #define __CHERRY_WINDOW_H__
 
 #include "dimension.h"
+#include "event.h"
 
 typedef struct CherryWindow {
 	char            *title;
@@ -15,7 +16,7 @@ typedef struct CherryWindow {
 	Window window_handler;
 	GC     gc;
 
-	int (*listener)(struct CherryWindow *, int);
+	int (*listener)(struct CherryWindow *, CherryEvent);
 } CherryWindow;
 
 CherryWindow *cherry_window_new(void);
@@ -25,6 +26,6 @@ void          cherry_window_set_title(CherryWindow *, char *);
 void          cherry_window_set_dimension(CherryWindow *, int, int);
 void          cherry_window_set_position(CherryWindow *, int, int);
 void          cherry_window_set_visible(CherryWindow *, int);
-void          cherry_window_set_listener(CherryWindow *, int (*listener)(struct CherryWindow *, int));
+void          cherry_window_set_listener(CherryWindow *, int (*listener)(struct CherryWindow *, CherryEvent));
 
 #endif /* __CHERRY_WINDOW_H__ */

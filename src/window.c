@@ -147,7 +147,7 @@ cherry_window_set_visible(CherryWindow *w, int visible)
 
 void
 cherry_window_set_listener(CherryWindow *w,
-                           int (*listener)(struct CherryWindow *, int))
+                           int (*listener)(struct CherryWindow *, CherryEvent))
 {
 	w->listener = listener;
 }
