@@ -4,6 +4,8 @@
 #define __CHERRY_APPLICATION_H__
 
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xresource.h>
 #include <utils.h>
 
 typedef struct CherryApplication {
@@ -14,6 +16,7 @@ typedef struct CherryApplication {
 	int      screen;
 	int      depth;
 	Visual  *visual;
+	XContext context;
 
 	void (*listener_activate)(struct CherryApplication *, void *);
 	void *listener_activate_data;

@@ -24,6 +24,7 @@ cherry_application_new(const char *name)
 	app->name = strdup(name);
 	app->display = NULL;
 	app->windows = clist_create();
+	app->context = XUniqueContext();
 
 	app->listener_activate = NULL;
 	app->listener_activate_data = NULL;
@@ -40,16 +41,10 @@ static void
 dispatch_event(CherryApplication *app,
                CherryEvent evt,
                XEvent event) {
-	iterator_t it = clist_iterator(&app->windows);
-	while (clist_iterator_has_next(it)) {
-		CherryWindow *w = clist_iterator_next(&it);
-		if (w->window_handler == wnd) {
-			if (w->listener != NULL) {
-				w->listener(w, evt);
-			} else {
-				return;
-			}
-		}
+	CherryWindow *w = NULL;
+	XFindContext(event.xany.display, event.xany.window, app->context, (XPointer*) &w);
+	if (w != NULL && w->listener != NULL) {
+		w->listener(w, evt);
 	}
 }
 

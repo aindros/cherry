@@ -71,6 +71,7 @@ cherry_window_new(void)
 	XSetForeground(app->display, w->gc, BlackPixel(app->display, app->screen));
 
 	clist_add(&(app->windows), w);
+	XSaveContext(app->display, w->window_handler, app->context, (XPointer) w);
 
 	return w;
 }
