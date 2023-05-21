@@ -32,5 +32,6 @@ typedef struct CherryEvent {
 CherryEvent cherry_event_create(Display *, Window, int);
 CherryEvent cherry_event_mouse_create(Display *, Window, int, int x, int y);
 CherryEvent cherry_event_key_create(int, XKeyEvent);
+int         cherry_event_id(CherryEvent);
 
 #endif /* __CHERRY_EVENT_H__ */
