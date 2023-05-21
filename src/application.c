@@ -37,13 +37,15 @@ cherry_application_new(const char *name)
 }
 
 static void
-dispatch_event(CherryApplication *app, Window wnd, int event_id) {
+dispatch_event(CherryApplication *app,
+               CherryEvent evt,
+               XEvent event) {
 	iterator_t it = clist_iterator(&app->windows);
 	while (clist_iterator_has_next(it)) {
 		CherryWindow *w = clist_iterator_next(&it);
 		if (w->window_handler == wnd) {
 			if (w->listener != NULL) {
-				w->listener(w, event_id);
+				w->listener(w, evt);
 			} else {
 				return;
 			}
