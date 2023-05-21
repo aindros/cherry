@@ -58,6 +58,8 @@ cherry_application_main_loop(CherryApplication *app)
 	int finish = 0;
 	char *atom_name;
 
+	Log *log = log_create("cherry_application_main_loop");
+
 	while (finish == 0) {
 		XNextEvent(app->display, &event);
 
@@ -84,6 +86,7 @@ cherry_application_main_loop(CherryApplication *app)
 				                          WINDOW_EXPOSED);
 				break;
 			case MappingNotify:
+				log_debug(log, "MappingNotify");
 				XRefreshKeyboardMapping(&event.xmapping);
 				break;
 			case ButtonPress:
@@ -95,6 +98,7 @@ cherry_application_main_loop(CherryApplication *app)
 				break;
 			case KeyPress:
 				evt = cherry_event_key_create(KEY_PRESSED, event.xkey);
+				log_debug(log, "KeyPress");
 				break;
 		}
 
