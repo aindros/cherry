@@ -12,12 +12,25 @@ enum Events {
 	KEY_PRESSED
 };
 
+typedef struct CherryEventMouse {
+	int x;
+	int y;
+} CherryEventMouse;
+
+typedef struct CherryEventKey {
+	XKeyEvent xkey;
+} CherryEventKey;
+
 typedef struct CherryEvent {
 	Display *display;
 	Window   window;
 	int      event_id;
-	int      x, y;
-	XKeyEvent xkey;
-};
+	CherryEventKey   key;
+	CherryEventMouse mouse;
+} CherryEvent;
+
+CherryEvent cherry_event_create(Display *, Window, int);
+CherryEvent cherry_event_mouse_create(Display *, Window, int, int x, int y);
+CherryEvent cherry_event_key_create(int, XKeyEvent);
 
 #endif /* __CHERRY_EVENT_H__ */

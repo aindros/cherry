@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xresource.h>
 #include <utils.h>
 #include <log.h>
 #include "application.h"
@@ -59,6 +61,8 @@ cherry_application_main_loop(CherryApplication *app)
 	while (finish == 0) {
 		XNextEvent(app->display, &event);
 
+		CherryEvent evt;
+
 		switch (event.type) {
 			case ClientMessage:
 				atom_name = XGetAtomName(app->display, (Atom) event.xclient.data.l[0]);
@@ -67,20 +71,34 @@ cherry_application_main_loop(CherryApplication *app)
 					/* Exit from loop */
 					finish = 1;
 				} else if (strcmp("WM_DELETE_WINDOW", atom_name) == 0) {
-					dispatch_event(app, event.xclient.window, DELETE_WINDOW);
+					evt = cherry_event_create(NULL,
+					                          event.xclient.window,
+					                          WINDOW_DELETED);
 				}
 
 				XFree(atom_name);
 				break;
 			case Expose:
+				evt = cherry_event_create(event.xclient.display,
+				                          event.xclient.window,
+				                          WINDOW_EXPOSED);
 				break;
 			case MappingNotify:
+				XRefreshKeyboardMapping(&event.xmapping);
 				break;
 			case ButtonPress:
+				evt = cherry_event_mouse_create(event.xbutton.display,
+				                                event.xbutton.window,
+				                                MOUSE_BUTTON_PRESSED,
+				                                event.xbutton.x,
+				                                event.xbutton.y);
 				break;
 			case KeyPress:
+				evt = cherry_event_key_create(KEY_PRESSED, event.xkey);
 				break;
 		}
+
+		dispatch_event(app, evt, event);
 	}
 }
 
