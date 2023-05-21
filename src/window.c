@@ -31,7 +31,8 @@ cherry_window_new(void)
 	hints.flags  = PPosition|PSize;
 
 	XSetWindowAttributes attributes;
-	attributes.background_pixel = XWhitePixel(app->display, app->screen);
+/*	attributes.background_pixel = XWhitePixel(app->display, app->screen); */
+	attributes.background_pixel = RGB(100, 10, 10);
 
 	w->window_handler = XCreateWindow(app->display,
 	                                  XRootWindow(app->display, app->screen),
