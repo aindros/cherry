@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include "widget.h"
 
+void
+cherry_widget_draw(CherryWidget *widget)
+{
+}
+
 CherryWidget *
 cherry_widget_new(void)
 {
@@ -12,6 +17,7 @@ cherry_widget_new(void)
 	widget->widgets = clist_create();
 	widget->draw = NULL;
 	widget->dimension = cherry_dimension_new();
+	widget->draw = cherry_widget_draw;
 
 	return widget;
 }
