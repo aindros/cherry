@@ -12,7 +12,7 @@ typedef struct CherryWidget {
 	int x, y;                     /* Coordinates                */
 	CherryDimension *dimension;   /* Size of the widget         */
 	int visible;                  /* Is this visible?           */
-	list_t components;               /* A list of children widgets */
+	list_t widgets;               /* A list of children widgets */
 
 	/* Xlib stuff */
 //	XSizeHints hints;
