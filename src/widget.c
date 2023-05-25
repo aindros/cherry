@@ -6,14 +6,14 @@
 CherryWidget *
 cherry_widget_new(void)
 {
-	CherryWidget *comp = malloc(sizeof(*comp));
-	comp->x = 0;
-	comp->y = 0;
-	comp->components = clist_create();
-	comp->draw = NULL;
-	comp->dimension = cherry_dimension_new();
+	CherryWidget *widget = malloc(sizeof(*widget));
+	widget->x = 0;
+	widget->y = 0;
+	widget->widgets = clist_create();
+	widget->draw = NULL;
+	widget->dimension = cherry_dimension_new();
 
-	return comp;
+	return widget;
 }
 
 CherryDimension *
@@ -24,5 +24,5 @@ cherry_widget_get_dimension(CherryWidget *comp) {
 void
 cherry_widget_add_component(CherryWidget *parent, CherryWidget *child)
 {
-	clist_add(&parent->components, child);
+	clist_add(&parent->widgets, child);
 }
