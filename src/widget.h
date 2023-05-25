@@ -3,11 +3,11 @@
 #ifndef __CHERRY_WIDGET_H__
 #define __CHERRY_WIDGET_H__
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
+#include <stdlib.h> /* used bu utils.h until I'll fix that */
 #include <utils.h>
 #include "dimension.h"
 
+/* The parent of all widgets */
 typedef struct CherryWidget {
 	int x, y;
 	CherryDimension *dimension;
@@ -15,9 +15,9 @@ typedef struct CherryWidget {
 	list_t components;
 
 	/* Xlib stuff */
-	XSizeHints hints;
-	GC         gc;
-	Window     wnd;
+//	XSizeHints hints;
+//	GC         gc;
+//	Window     wnd;
 
 	void (*draw)(struct CherryWidget *);
 } CherryWidget;
