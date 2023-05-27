@@ -1,12 +1,11 @@
 # See LICENSE file for copyright and license details.
 
-NAME = cherry
+LIBNAME = libcherry
 
 CC   = cc
-SRC != find src -name '*.c'
-OBJ  = ${SRC:.c=.o}
 LIB  = x11 utils log
 STD  = c11
+OPT  = -O2 -pipe
 #WRN  = -Wall -Werror
 
 CFLAGS != pkg-config --cflags ${LIB}
