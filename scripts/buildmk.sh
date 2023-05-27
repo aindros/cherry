@@ -22,7 +22,7 @@ DIST_DIR  = ${DIST_DIR}
 OBJ       = $OBJ
 INCLUDES != find $SRC_DIR -name '*.h'
 
-all: static shared
+all: \${PROFILE}
 
 dist: all
 	mkdir -p \${DIST_DIR}/include/cherry
@@ -31,6 +31,8 @@ dist: all
 	cp \${INCLUDES} \${DIST_DIR}/include/cherry
 
 debug: debug-static debug-shared
+
+release: static shared
 
 static:
 	@make BUILD_DIR=\${BUILD_DIR}/release/static \${BUILD_DIR}/release/static/\${LIBNAME:=.a}

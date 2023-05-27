@@ -7,7 +7,7 @@ DIST_DIR  = build/dist
 OBJ       = ${BUILD_DIR}/cherry.o ${BUILD_DIR}/main.o ${BUILD_DIR}/window.o ${BUILD_DIR}/application.o ${BUILD_DIR}/event.o ${BUILD_DIR}/widget.o 
 INCLUDES != find src -name '*.h'
 
-all: static shared
+all: ${PROFILE}
 
 dist: all
 	mkdir -p ${DIST_DIR}/include/cherry
@@ -16,6 +16,8 @@ dist: all
 	cp ${INCLUDES} ${DIST_DIR}/include/cherry
 
 debug: debug-static debug-shared
+
+release: static shared
 
 static:
 	@make BUILD_DIR=${BUILD_DIR}/release/static ${BUILD_DIR}/release/static/${LIBNAME:=.a}
