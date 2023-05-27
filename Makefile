@@ -3,17 +3,17 @@
 include config.mk
 
 BUILD_DIR = build
-DIST_DIR  = dist
+DIST_DIR  = build/dist
 OBJ       = ${BUILD_DIR}/cherry.o ${BUILD_DIR}/main.o ${BUILD_DIR}/window.o ${BUILD_DIR}/application.o ${BUILD_DIR}/event.o ${BUILD_DIR}/widget.o 
 INCLUDES != find src -name '*.h'
 
 all: static shared
 
-${DIST_DIR}: all
-	mkdir -p $@/include/cherry
-	cp ${BUILD_DIR}/release/static/${LIBNAME:=.a} $@/
-	cp ${BUILD_DIR}/release/shared/${LIBNAME:=.so} $@/
-	cp ${INCLUDES} $@/include/cherry
+dist: all
+	mkdir -p ${DIST_DIR}/include/cherry
+	cp ${BUILD_DIR}/release/static/${LIBNAME:=.a} ${DIST_DIR}/
+	cp ${BUILD_DIR}/release/shared/${LIBNAME:=.so} ${DIST_DIR}/
+	cp ${INCLUDES} ${DIST_DIR}/include/cherry
 
 debug: debug-static debug-shared
 

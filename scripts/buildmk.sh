@@ -3,7 +3,7 @@
 MAKEFILE=Makefile
 SRC_DIR=src
 BUILD_DIR=build
-DIST_DIR=dist
+DIST_DIR=$BUILD_DIR/dist
 
 # Start composing the Makefile
 
@@ -24,11 +24,11 @@ INCLUDES != find $SRC_DIR -name '*.h'
 
 all: static shared
 
-\${DIST_DIR}: all
-	mkdir -p \$@/include/cherry
-	cp \${BUILD_DIR}/release/static/\${LIBNAME:=.a} \$@/
-	cp \${BUILD_DIR}/release/shared/\${LIBNAME:=.so} \$@/
-	cp \${INCLUDES} \$@/include/cherry
+dist: all
+	mkdir -p \${DIST_DIR}/include/cherry
+	cp \${BUILD_DIR}/release/static/\${LIBNAME:=.a} \${DIST_DIR}/
+	cp \${BUILD_DIR}/release/shared/\${LIBNAME:=.so} \${DIST_DIR}/
+	cp \${INCLUDES} \${DIST_DIR}/include/cherry
 
 debug: debug-static debug-shared
 
