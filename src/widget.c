@@ -20,6 +20,7 @@ cherry_widget_new(void)
 	widget->width = 0;
 	widget->height = 0;
 	widget->visible = 0;
+	widget->drawn = 0;
 	widget->draw = cherry_widget_draw;
 
 	return widget;
