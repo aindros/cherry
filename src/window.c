@@ -9,73 +9,88 @@
 #include "window.h"
 #include "color.h"
 
-CherryWindow *
-cherry_window_new(void)
+static void
+cherry_window_draw(CherryWidget *widget)
 {
-	CherryWindow *w = malloc(sizeof(*w));
-	w->title = NULL;
-	w->x = 0;
-	w->y = 0;
-	w->listener = NULL;
-
+	CherryWindow *window = (CherryWindow *) widget;
 	CherryApplication *app = cherry_application_get_running_app();
 
-	int offset = 10;
-	int border_width = 5;
 	XSizeHints hints;
-	hints.x      = w->x + offset;
-	hints.y      = w->y + offset;
 	cherry_window_get_position(window, &hints.x, &hints.y);
 	cherry_window_get_dimension(window, &hints.width, &hints.height);
 	hints.flags  = PPosition|PSize;
+
+	int border_width = 5;
 
 	XSetWindowAttributes attributes;
 /*	attributes.background_pixel = XWhitePixel(app->display, app->screen); */
 	attributes.background_pixel = RGB(100, 10, 10);
 
-	w->window_handler = XCreateWindow(app->display,
-	                                  XRootWindow(app->display, app->screen),
-	                                  hints.x,     hints.y,
-	                                  hints.width, hints.height,
-	                                  border_width,
-	                                  app->depth,
-	                                  InputOutput,
-	                                  app->visual,
-	                                  CWBackPixel,
-	                                  &attributes);
+	window->window_handler = XCreateWindow(app->display,
+	                                       XRootWindow(app->display, app->screen),
+	                                       hints.x,     hints.y,
+	                                       hints.width, hints.height,
+	                                       border_width,
+	                                       app->depth,
+	                                       InputOutput,
+	                                       app->visual,
+	                                       CWBackPixel,
+	                                       &attributes);
+
 	char window_name[] = "";
 	char icon_name[]   = "";
 
 	/* window manager properties (yes, use of StdProp is obsolete) */
 	XSetStandardProperties(app->display,
-	                       w->window_handler,
-	                       window_name,
+	                       window->window_handler,
+	                       window->title,
 	                       icon_name,
 	                       None, NULL, 0,
 	                       &hints);
 
 	/* allow receiving mouse events */
 	XSelectInput(app->display,
-	             w->window_handler,
+	             window->window_handler,
 	             ButtonPressMask | KeyPressMask | ExposureMask);
 
 	Atom wmDelete = XInternAtom(app->display, "WM_DELETE_WINDOW", True);
-	XSetWMProtocols(app->display, w->window_handler, &wmDelete, 1);
+	XSetWMProtocols(app->display, window->window_handler, &wmDelete, 1);
 
 	Atom wmDispose = XInternAtom(app->display, "CHERRY_DISPOSE_ON_EXIT", True);
-	XSetWMProtocols(app->display, w->window_handler, &wmDelete, 1);
+	XSetWMProtocols(app->display, window->window_handler, &wmDelete, 1);
 
-	w->gc = XCreateGC(app->display, w->window_handler, 0, 0);
-	XSetBackground(app->display, w->gc, WhitePixel(app->display, app->screen));
-	XSetForeground(app->display, w->gc, BlackPixel(app->display, app->screen));
-/*	XSetForeground(app->display, w->gc, RGB(255,0,127)); */
+	window->gc = XCreateGC(app->display, window->window_handler, 0, 0);
+
+	XSetBackground(app->display, window->gc, WhitePixel(app->display, app->screen));
+	XSetForeground(app->display, window->gc, BlackPixel(app->display, app->screen));
+/*	XSetForeground(app->display, window->gc, RGB(255,0,127)); */
+
+	clist_add(&(app->windows), window);
+	XSaveContext(app->display, window->window_handler, app->context, (XPointer) window);
+
+//	cherry_widget_draw(
+}
+
+CherryWindow *
+cherry_window_new(void)
+{
+	CherryWindow *window = malloc(sizeof(*window));
+	window->base     = cherry_widget_new();
+	window->title    = NULL;
+	window->listener = NULL;
+	window->base->draw = cherry_window_draw;
+
+	int offset = 10;
+	int x, y, width, height;
+
+	cherry_widget_get_position((CherryWidget *) window, &x, &y);
+	cherry_widget_set_position((CherryWidget *) window, x + offset, y + offset);
+
 	cherry_widget_get_dimension((CherryWidget *) window, &width, &height);
 	cherry_widget_set_dimension((CherryWidget *) window, width + offset, height + offset);
 
-	clist_add(&(app->windows), w);
-	XSaveContext(app->display, w->window_handler, app->context, (XPointer) w);
 
-	return w;
+	return window;
 }
 
 void
