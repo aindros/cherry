@@ -32,7 +32,40 @@ cherry_widget_get_dimension(CherryWidget *widget, int *width, int *height) {
 }
 
 void
+cherry_widget_set_dimension(CherryWidget *widget, int width, int height)
+{
+	widget->width = width;
+	widget->height = height;
+}
+
+void
 cherry_widget_add_component(CherryWidget *parent, CherryWidget *child)
 {
 	clist_add(&parent->widgets, child);
+}
+
+int
+cherry_widget_is_visible(CherryWidget *widget)
+{
+	return widget->visible;
+}
+
+void
+cherry_widget_set_visible(CherryWidget *widget, int visible)
+{
+	widget->visible = visible;
+}
+
+void
+cherry_widget_get_position(CherryWidget *widget, int *x, int *y)
+{
+	*x = widget->x;
+	*y = widget->y;
+}
+
+void
+cherry_widget_set_position(CherryWidget *widget, int x, int y)
+{
+	widget->x = x;
+	widget->y = y;
 }

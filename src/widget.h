@@ -24,5 +24,10 @@ typedef struct CherryWidget {
 
 CherryWidget    *cherry_widget_new(void);
 void             cherry_widget_get_dimension(CherryWidget *, int *, int *);
+void             cherry_widget_set_dimension(CherryWidget *, int, int);
+int              cherry_widget_is_visible(CherryWidget *);
+void             cherry_widget_set_visible(CherryWidget *, int);
+void             cherry_widget_get_position(CherryWidget *, int *, int *);
+void             cherry_widget_set_position(CherryWidget *, int, int);
 
 #endif /* __CHERRY_WIDGET_H__ */
