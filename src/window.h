@@ -3,12 +3,11 @@
 #ifndef __CHERRY_WINDOW_H__
 #define __CHERRY_WINDOW_H__
 
-#include "dimension.h"
+#include "widget.h"
 #include "event.h"
 
 typedef struct CherryWindow {
 	char            *title;
-	CherryDimension *dimension;
 	int x, y;
 	int visible;
 
@@ -23,6 +22,7 @@ CherryWindow *cherry_window_new(void);
 void          cherry_window_dispose_on_exit(CherryWindow *);
 char         *cherry_window_get_title(CherryWindow *);
 void          cherry_window_set_title(CherryWindow *, char *);
+void          cherry_window_get_dimension(CherryWindow *, int *, int *);
 void          cherry_window_set_dimension(CherryWindow *, int, int);
 void          cherry_window_set_position(CherryWindow *, int, int);
 void          cherry_window_set_visible(CherryWindow *, int);

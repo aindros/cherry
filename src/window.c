@@ -70,6 +70,8 @@ cherry_window_new(void)
 	XSetBackground(app->display, w->gc, WhitePixel(app->display, app->screen));
 	XSetForeground(app->display, w->gc, BlackPixel(app->display, app->screen));
 /*	XSetForeground(app->display, w->gc, RGB(255,0,127)); */
+	cherry_widget_get_dimension((CherryWidget *) window, &width, &height);
+	cherry_widget_set_dimension((CherryWidget *) window, width + offset, height + offset);
 
 	clist_add(&(app->windows), w);
 	XSaveContext(app->display, w->window_handler, app->context, (XPointer) w);
@@ -114,15 +116,25 @@ cherry_window_set_title(CherryWindow *w, char *title)
 }
 
 void
-cherry_window_set_dimension(CherryWindow *w, int width, int height)
+cherry_window_get_dimension(CherryWindow *window, int *width, int *height)
 {
-	w->dimension->width  = width;
-	w->dimension->height = height;
+	CherryWidget *widget = (CherryWidget *) window;
+	cherry_widget_get_dimension(widget, width, height);
+}
 
-	CherryApplication *app = cherry_application_get_running_app();
-	XMoveResizeWindow(app->display, w->window_handler,
-	                  w->x, w->y,
-	                  w->dimension->width, w->dimension->height);
+void
+cherry_window_set_dimension(CherryWindow *window, int width, int height)
+{
+	CherryWidget *widget = (CherryWidget *) window;
+	cherry_widget_set_dimension(widget, width, height);
+
+	if (cherry_widget_is_visible(widget)) {
+		int x, y;
+		CherryApplication *app = cherry_application_get_running_app();
+		XMoveResizeWindow(app->display, window->window_handler,
+		                  x, y,
+		                  width, height);
+	}
 }
 
 void
