@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "widget.h"
 
-void
+static void
 cherry_widget_draw(CherryWidget *widget)
 {
 	widget->drawn = 1;
