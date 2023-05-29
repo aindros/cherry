@@ -5,7 +5,6 @@
 
 #include <stdlib.h> /* used by utils.h until I'll fix that */
 #include <utils.h>
-#include "dimension.h"
 
 /* The parent of all widgets */
 typedef struct CherryWidget {
@@ -13,6 +12,7 @@ typedef struct CherryWidget {
 	CherryDimension *dimension;   /* Size of the widget         */
 	int visible;                  /* Is this visible?               */
 	list_t widgets;               /* A list of children widgets     */
+	int drawn;                    /* Set to 1 when draw() is called */
 
 	/* Xlib stuff */
 //	XSizeHints hints;

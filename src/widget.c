@@ -1,11 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "widget.h"
 
 void
 cherry_widget_draw(CherryWidget *widget)
 {
+	widget->drawn = 1;
 }
 
 CherryWidget *
