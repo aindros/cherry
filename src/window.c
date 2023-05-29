@@ -26,8 +26,8 @@ cherry_window_new(void)
 	XSizeHints hints;
 	hints.x      = w->x + offset;
 	hints.y      = w->y + offset;
-	hints.width  = w->dimension->width  + offset;
-	hints.height = w->dimension->height + offset;
+	cherry_window_get_position(window, &hints.x, &hints.y);
+	cherry_window_get_dimension(window, &hints.width, &hints.height);
 	hints.flags  = PPosition|PSize;
 
 	XSetWindowAttributes attributes;
