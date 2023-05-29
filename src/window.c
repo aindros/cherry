@@ -68,7 +68,7 @@ cherry_window_draw(CherryWidget *widget)
 	clist_add(&(app->windows), window);
 	XSaveContext(app->display, window->window_handler, app->context, (XPointer) window);
 
-//	cherry_widget_draw(
+	window->base.draw((CherryWidget *) window);
 }
 
 CherryWindow *
