@@ -15,6 +15,7 @@ typedef struct CherryWindow {
 	GC     gc;
 
 	int (*listener)(struct CherryWindow *, CherryEvent);
+	void (*draw)(struct CherryWidget *);
 } CherryWindow;
 
 CherryWindow *cherry_window_new(void);

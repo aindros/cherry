@@ -78,7 +78,7 @@ cherry_window_new(void)
 	window->base     = cherry_widget_new();
 	window->title    = NULL;
 	window->listener = NULL;
-	window->base->draw = cherry_window_draw;
+	window->draw     = cherry_window_draw;
 
 	int offset = 10;
 	int x, y, width, height;
@@ -168,6 +168,7 @@ cherry_window_set_visible(CherryWindow *w, int visible)
 {
 	CherryApplication *app = cherry_application_get_running_app();
 
+	w->draw((CherryWidget *) w     );
 	if (visible) {
 		XMapRaised(app->display, w->window_handler);
 	}
