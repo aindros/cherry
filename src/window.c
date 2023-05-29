@@ -111,11 +111,16 @@ cherry_window_dispose_on_exit(CherryWindow *w)
 }
 
 char *
-cherry_window_get_title(CherryWindow *w)
+cherry_window_get_title(CherryWindow *window)
 {
 	char *wnd_name;
-	CherryApplication *app = cherry_application_get_running_app();
-	XFetchName(app->display, w->window_handler, &wnd_name);
+
+	if (window->base.drawn) {
+		CherryApplication *app = cherry_application_get_running_app();
+		XFetchName(app->display, window->window_handler, &wnd_name);
+	} else {
+		wnd_name = window->title;
+	}
 
 	return wnd_name;
 }
