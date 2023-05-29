@@ -151,6 +151,12 @@ cherry_window_set_dimension(CherryWindow *window, int width, int height)
 	}
 }
 
+cherry_window_get_position(CherryWindow *window, int *x, int *y)
+{
+	CherryWidget *widget = (CherryWidget *) window;
+	cherry_widget_get_position(widget, x, y);
+}
+
 void
 cherry_window_set_position(CherryWindow *w, int x, int y)
 {
@@ -164,7 +170,6 @@ cherry_window_set_position(CherryWindow *w, int x, int y)
 }
 
 void
-cherry_window_set_visible(CherryWindow *w, int visible)
 cherry_window_set_visible(CherryWindow *window, int visible)
 {
 	CherryApplication *app = cherry_application_get_running_app();

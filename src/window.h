@@ -24,6 +24,7 @@ char         *cherry_window_get_title(CherryWindow *);
 void          cherry_window_set_title(CherryWindow *, char *);
 void          cherry_window_get_dimension(CherryWindow *, int *, int *);
 void          cherry_window_set_dimension(CherryWindow *, int, int);
+void          cherry_window_get_position(CherryWindow *, int *, int *);
 void          cherry_window_set_position(CherryWindow *, int, int);
 void          cherry_window_set_visible(CherryWindow *, int);
 void          cherry_window_set_listener(CherryWindow *, int (*listener)(struct CherryWindow *, CherryEvent));
