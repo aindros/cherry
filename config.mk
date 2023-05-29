@@ -8,6 +8,9 @@ STD  = c11
 OPT  = -O2 -pipe
 #WRN  = -Wall -Werror
 
+PROFILE = debug
+#PROFILE = release
+
 CFLAGS != pkg-config --cflags ${LIB}
 LFLAGS != pkg-config --libs ${LIB}
 
