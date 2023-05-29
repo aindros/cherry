@@ -7,9 +7,8 @@
 #include "event.h"
 
 typedef struct CherryWindow {
-	char            *title;
-	int x, y;
-	int visible;
+	CherryWidget  base;
+	char         *title;
 
 	/* Xlib stuff */
 	Window window_handler;
