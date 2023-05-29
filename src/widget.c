@@ -58,6 +58,9 @@ void
 cherry_widget_set_visible(CherryWidget *widget, int visible)
 {
 	widget->visible = visible;
+
+	if (visible && widget->drawn == 0)
+		widget->draw(widget);
 }
 
 void
