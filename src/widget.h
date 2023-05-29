@@ -3,7 +3,7 @@
 #ifndef __CHERRY_WIDGET_H__
 #define __CHERRY_WIDGET_H__
 
-#include <stdlib.h> /* used bu utils.h until I'll fix that */
+#include <stdlib.h> /* used by utils.h until I'll fix that */
 #include <utils.h>
 #include "dimension.h"
 
