@@ -142,8 +142,10 @@ cherry_window_set_dimension(CherryWindow *window, int width, int height)
 	CherryWidget *widget = (CherryWidget *) window;
 	cherry_widget_set_dimension(widget, width, height);
 
-	if (cherry_widget_is_visible(widget)) {
+	if (widget->drawn) {
 		int x, y;
+		cherry_widget_get_position(widget, &x, &y);
+
 		CherryApplication *app = cherry_application_get_running_app();
 		XMoveResizeWindow(app->display, window->window_handler,
 		                  x, y,
@@ -164,6 +166,15 @@ cherry_window_set_position(CherryWindow *window, int x, int y)
 	CherryWidget *widget = (CherryWidget *) window;
 	cherry_widget_set_position(widget, x, y);
 
+	if (widget->drawn) {
+		int width, height;
+		cherry_widget_get_dimension(widget, &width, &height);
+
+		CherryApplication *app = cherry_application_get_running_app();
+		XMoveResizeWindow(app->display, window->window_handler,
+		                  x, y,
+		                  width, height);
+	}
 }
 
 void
