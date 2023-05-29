@@ -27,15 +27,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-CherryApplication *cherry_application_new(const char *name)
-{
-  CherryApplication *application =
-    (CherryApplication *) malloc(sizeof(CherryApplication));
-  application->name = strdup(name);
-
-  return application;
-}
-
 int cherry_application_run()
 {
 #if defined(WIN32) || defined(_WIN64)
@@ -47,4 +38,5 @@ int cherry_application_run()
 
   return msg.wParam;
 #endif
+	return 0;
 }
