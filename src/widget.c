@@ -17,16 +17,18 @@ cherry_widget_new(void)
 	widget->x = 0;
 	widget->y = 0;
 	widget->widgets = clist_create();
-	widget->dimension = cherry_dimension_new();
+	widget->width = 0;
+	widget->height = 0;
 	widget->visible = 0;
 	widget->draw = cherry_widget_draw;
 
 	return widget;
 }
 
-CherryDimension *
-cherry_widget_get_dimension(CherryWidget *comp) {
-	return comp->dimension;
+void
+cherry_widget_get_dimension(CherryWidget *widget, int *width, int *height) {
+	*width = widget->width;
+	*height = widget->height;
 }
 
 void

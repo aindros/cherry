@@ -9,7 +9,7 @@
 /* The parent of all widgets */
 typedef struct CherryWidget {
 	int x, y;                     /* Coordinates                    */
-	CherryDimension *dimension;   /* Size of the widget         */
+	int width, height;            /* Size of the widget             */
 	int visible;                  /* Is this visible?               */
 	list_t widgets;               /* A list of children widgets     */
 	int drawn;                    /* Set to 1 when draw() is called */
@@ -23,6 +23,6 @@ typedef struct CherryWidget {
 } CherryWidget;
 
 CherryWidget    *cherry_widget_new(void);
-CherryDimension *cherry_widget_get_dimension(CherryWidget *);
+void             cherry_widget_get_dimension(CherryWidget *, int *, int *);
 
 #endif /* __CHERRY_WIDGET_H__ */
