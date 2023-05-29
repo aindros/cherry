@@ -15,9 +15,9 @@ dist: all
 	cp ${BUILD_DIR}/release/shared/${LIBNAME:=.so} ${DIST_DIR}/
 	cp ${INCLUDES} ${DIST_DIR}/include/cherry
 
-debug: debug-static debug-shared
+debug: debug-static debug-shared copy-includes
 
-release: static shared
+release: static shared copy-includes
 
 static:
 	@make BUILD_DIR=${BUILD_DIR}/release/static ${BUILD_DIR}/release/static/${LIBNAME:=.a}
@@ -27,6 +27,10 @@ shared:
 
 debug-static:
 	@make BUILD_DIR=${BUILD_DIR}/debug/static OPT=-g ${BUILD_DIR}/debug/static/${LIBNAME:=.a}
+
+copy-includes:
+	@mkdir -p ${BUILD_DIR}/include/cherry
+	@cp ${INCLUDES} ${BUILD_DIR}/include/cherry
 
 debug-shared:
 	@make BUILD_DIR=${BUILD_DIR}/debug/shared OPT="-g -fPIC" ${BUILD_DIR}/debug/shared/${LIBNAME:=.so}
