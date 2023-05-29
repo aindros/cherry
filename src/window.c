@@ -165,12 +165,13 @@ cherry_window_set_position(CherryWindow *w, int x, int y)
 
 void
 cherry_window_set_visible(CherryWindow *w, int visible)
+cherry_window_set_visible(CherryWindow *window, int visible)
 {
 	CherryApplication *app = cherry_application_get_running_app();
 
-	w->draw((CherryWidget *) w     );
+	window->draw((CherryWidget *) window);
 	if (visible) {
-		XMapRaised(app->display, w->window_handler);
+		XMapRaised(app->display, window->window_handler);
 	}
 }
 
