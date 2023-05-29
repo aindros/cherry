@@ -14,7 +14,6 @@ cherry_window_new(void)
 {
 	CherryWindow *w = malloc(sizeof(*w));
 	w->title = NULL;
-	w->dimension = cherry_dimension_new();
 	w->x = 0;
 	w->y = 0;
 	w->listener = NULL;
