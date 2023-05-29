@@ -15,7 +15,6 @@ cherry_widget_new(void)
 	widget->x = 0;
 	widget->y = 0;
 	widget->widgets = clist_create();
-	widget->draw = NULL;
 	widget->dimension = cherry_dimension_new();
 	widget->visible = 0;
 	widget->draw = cherry_widget_draw;
