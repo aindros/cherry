@@ -9,10 +9,10 @@
 
 /* The parent of all widgets */
 typedef struct CherryWidget {
-	int x, y;                     /* Coordinates                */
+	int x, y;                     /* Coordinates                    */
 	CherryDimension *dimension;   /* Size of the widget         */
-	int visible;                  /* Is this visible?           */
-	list_t widgets;               /* A list of children widgets */
+	int visible;                  /* Is this visible?               */
+	list_t widgets;               /* A list of children widgets     */
 
 	/* Xlib stuff */
 //	XSizeHints hints;
