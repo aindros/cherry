@@ -43,6 +43,9 @@ void
 cherry_widget_add_component(CherryWidget *parent, CherryWidget *child)
 {
 	clist_add(&parent->widgets, child);
+	if (cherry_widget_is_visible(parent) && parent->drawn) {
+		child->draw(child);
+	}
 }
 
 int
