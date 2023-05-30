@@ -10,18 +10,18 @@ cherry_widget_draw(CherryWidget *widget)
 	widget->drawn = 1;
 }
 
-CherryWidget *
+CherryWidget
 cherry_widget_new(void)
 {
-	CherryWidget *widget = malloc(sizeof(*widget));
-	widget->x = 0;
-	widget->y = 0;
-	widget->widgets = clist_create();
-	widget->width = 0;
-	widget->height = 0;
-	widget->visible = 0;
-	widget->drawn = 0;
-	widget->draw = cherry_widget_draw;
+	CherryWidget widget;
+	widget.x = 0;
+	widget.y = 0;
+	widget.widgets = clist_create();
+	widget.width = 0;
+	widget.height = 0;
+	widget.visible = 0;
+	widget.drawn = 0;
+	widget.draw = cherry_widget_draw;
 
 	return widget;
 }

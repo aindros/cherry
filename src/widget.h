@@ -22,7 +22,7 @@ typedef struct CherryWidget {
 	void (*draw)(struct CherryWidget *);
 } CherryWidget;
 
-CherryWidget    *cherry_widget_new(void);
+CherryWidget     cherry_widget_new(void);
 void             cherry_widget_get_dimension(CherryWidget *, int *, int *);
 void             cherry_widget_set_dimension(CherryWidget *, int, int);
 int              cherry_widget_is_visible(CherryWidget *);
