@@ -7,6 +7,7 @@
 static void
 cherry_widget_draw(CherryWidget *widget)
 {
+	if (cherry_widget_is_visible(*widget) == 0) return;
 	widget->drawn = 1;
 }
 
