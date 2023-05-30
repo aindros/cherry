@@ -50,6 +50,11 @@ clean-obj:
 clean:
 	rm -rf ${BUILD_DIR}
 	rm -f *.core
+	rm -f test/tests
+
+tests: debug
+	cd test && make
+	test/tests
 
 ${BUILD_DIR}/cherry.o: src/cherry.c
 	${CC} ${CFLAGS} -c $> -o $@

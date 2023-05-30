@@ -65,6 +65,11 @@ clean-obj:
 clean:
 	rm -rf \${BUILD_DIR}
 	rm -f *.core
+	rm -f test/tests
+
+tests: debug
+	cd test && make
+	test/tests
 
 EOF
 
